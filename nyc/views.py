@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 from django.views import View
 
@@ -19,8 +20,20 @@ class BoroughView(View):
 
 
 class ActivityView(View):
-    pass
+    def get(self, request, borough, activity):
+        return render(
+            request=request,
+            template_name= 'activities.html',
+            context={'borough': borough, 'activity': activity, 'activities': list( boroughs[borough][activity].keys())}
+            )
 
 
 class VenueView(View):
-    pass
+    def get(self, request, borough, activity, venue):
+        return render(
+            request=request,
+            template_name= 'venue.html',
+            context={'borough': borough, 'activity': activity, 'venue': venue, 
+            'venueDesc': boroughs [borough][activity][venue]['description'] }
+        )
+    
